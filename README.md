@@ -6,7 +6,7 @@ Welcome to my C++ code repository for the CSCI251 Advanced Programming course at
 
 1. **Assignments**: This directory is where I'll store all my assignment submissions for the CSCI251 course. Each assignment should have its folder with a clear and descriptive name indicating the assignment number and topic.
 
-2. **Labs**: This directory is for the lab exercises and solutions related to the CSCI251 course. I'll organize the lab folders by lab number and include any necessary source files and documentation.
+2. **Labs**: This directory is for the lab exercises and solutions related to the CSCI251 course. I'll organise the lab folders by lab number and include any necessary source files and documentation.
 
 3. **Projects**: If there are any larger-scale projects or group projects in the course, I'll place them in this directory. Each project should have its folder with an informative name.
 
@@ -22,7 +22,7 @@ Welcome to my C++ code repository for the CSCI251 Advanced Programming course at
 
 1. **File and Folder Naming**: I'll use descriptive names for folders and files, including assignment numbers, lab names, or project names. Clear naming conventions will help me quickly locate specific materials.
 
-2. **Version Control**: It's highly recommended to use version control (e.g., Git) to manage my code. I'll create separate branches for each assignment or project, and make sure to commit my changes regularly.
+2. **Version Control**: It's highly recommended to use version control (e.g., Git) to manage my code. I'll create separate branches for each assignment or project and make sure to commit my changes regularly.
 
 3. **Documentation**: Whenever I submit an assignment or complete a lab, I'll include a README file within the folder that describes the purpose of the task, any challenges faced, and the approach used to solve it.
 
@@ -30,7 +30,7 @@ Welcome to my C++ code repository for the CSCI251 Advanced Programming course at
 
 5. **Testing**: For each assignment or project, I'll try to include relevant test cases and testing code to verify the correctness of my solutions.
 
-6. **Academic Integrity**: I'll make sure to follow the course's academic integrity policy and avoid plagiarism or any unauthorized collaboration in my assignments.
+6. **Academic Integrity**: I'll make sure to follow the course's academic integrity policy and avoid plagiarism or any unauthorised collaboration in my assignments.
 
 7. **Backup and Security**: I'll regularly back up my repository to prevent data loss. I'll keep my repository private or share it only with trusted collaborators to ensure the security of my code.
 

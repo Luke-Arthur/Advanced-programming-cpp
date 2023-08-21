@@ -17,7 +17,7 @@ Welcome to my C++ code repository for the CSCI251 Advanced Programming course at
 6. **Miscellaneous**: For any other C++ code or files that don't fit into the above categories but are still relevant to the course, I'll use this directory.
 
 
-This README file provides an initial guide to my C++ code repository for the CSCI251 Advanced Programming course during Spring 2023 at UOW. As the course progresses, I'll feel free to modify and update this file or add more information based on the specific requirements of each assignment or project. Best of luck with my studies and coding projects!
+This README file provides an initial guide to my C++ code repository for the CSCI251 Advanced Programming course during Spring 2023 at UOW.
 
 Best regards,
 Enso

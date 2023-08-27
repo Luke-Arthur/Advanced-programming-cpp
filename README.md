@@ -1,5 +1,3 @@
-Certainly! Here's a detailed `README.md` for your project:
-
 ---
 
 # Crowdsourcing System Simulation
@@ -66,4 +64,3 @@ If you encounter any issues or would like to contribute to the improvement of th
 
 ---
 
-Feel free to adapt or extend the README based on any other specifics or nuances of your project.

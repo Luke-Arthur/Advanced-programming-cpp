@@ -5,11 +5,12 @@
 #include <string>
 #include <iomanip>
 
-void initializeFileIn(FileDataIn &fileData, const char* fname) {
-    fileData.filename = fname;
-    fileData.stream.open(fname);
+//
+void initialiseFileIn(FileDataIn &fileData, const char* fName) {
+    fileData.filename = fName;
+    fileData.stream.open(fName);
     if (!fileData.stream) {
-        std::cerr << "Failed to open " << fname << std::endl;
+        std::cerr << "Failed to open " << fName << std::endl;
         exit(1);
     }
 }
@@ -18,11 +19,11 @@ void closeFileIn(FileDataIn &fileData) {
     fileData.stream.close();
 }
 
-void initializeFileOut(FileOut &fileOut, const char* fname) {
-    fileOut.filename = fname;
-    fileOut.stream.open(fname);
+void initialiseFileOut(FileOut &fileOut, const char* fName) {
+    fileOut.filename = fName;
+    fileOut.stream.open(fName);
     if (!fileOut.stream) {
-        std::cerr << "Failed to open " << fname << std::endl;
+        std::cerr << "Failed to open " << fName << std::endl;
         exit(1);
     }
 }
@@ -31,26 +32,26 @@ void closeFileOut(FileOut &fileOut) {
     fileOut.stream.close();
 }
 
-void readTasks(Task tasks[], int& taskCount) {
-    FileDataIn taskFile;
-    initializeFileIn(taskFile, "Tasks.txt");
+void readTasks(Task tasks[], int& taskCount, FileDataIn &taskFile) {
+
+    initialiseFileIn(taskFile, taskFile.filename);
     taskCount = 0;
     std::string line;
     while (std::getline(taskFile.stream, line)) {
-        std::stringstream ss(line);
-        ss >> tasks[taskCount].taskId;
-        ss.ignore(); // comma
-        ss.getline(tasks[taskCount].description, 50, ',');
-        ss >> tasks[taskCount].uncertainty;
-        ss.ignore(); // comma
-        ss >> tasks[taskCount].difficulty;
-        ss.ignore(10, ':'); // jump to worker list
+        std::stringstream stgStrm(line);
+        stgStrm >> tasks[taskCount].taskId;
+        stgStrm.ignore(); // comma
+        stgStrm.getline(tasks[taskCount].description, 50, ',');
+        stgStrm >> tasks[taskCount].uncertainty;
+        stgStrm.ignore(); // comma
+        stgStrm >> tasks[taskCount].difficulty;
+        stgStrm.ignore(10, ':'); // jump to worker list
 
         int workerId;
         tasks[taskCount].workerCount = 0;
-        while (ss >> workerId) {
+        while (stgStrm >> workerId) {
             tasks[taskCount].workerList[tasks[taskCount].workerCount++] = workerId;
-            ss.ignore(); // comma or end of line
+            stgStrm.ignore(); // comma or end of line
         }
 
         taskCount++;
@@ -58,26 +59,26 @@ void readTasks(Task tasks[], int& taskCount) {
     closeFileIn(taskFile);
 }
 
-void readWorkers(Worker workers[], int& workerCount) {
-    FileDataIn workerFile;
-    initializeFileIn(workerFile, "Workers.txt");
+void readWorkers(Worker workers[], int& workerCount, FileDataIn &workerFile) {
+
+    initialiseFileIn(workerFile, workerFile.filename);
     workerCount = 0;
     std::string line;
     while (std::getline(workerFile.stream, line)) {
-        std::stringstream ss(line);
-        ss >> workers[workerCount].workerId;
-        ss.ignore(); // comma
-        ss.getline(workers[workerCount].name, 50, ',');
-        ss >> workers[workerCount].variability;
-        ss.ignore(); // comma
-        ss >> workers[workerCount].ability;
+        std::stringstream stgStrm(line);
+        stgStrm >> workers[workerCount].workerId;
+        stgStrm.ignore(); // comma
+        stgStrm.getline(workers[workerCount].name, 50, ',');
+        stgStrm >> workers[workerCount].variability;
+        stgStrm.ignore(); // comma
+        stgStrm >> workers[workerCount].ability;
 
         workerCount++;
     }
     closeFileIn(workerFile);
 }
 
-double simulatePerformance(const Task& task, const Worker& worker) {
+double forecastedPerformance(Task& task, Worker& worker) {
     std::random_device seed;
     std::mt19937 gen(seed());
     double mean = worker.ability - task.difficulty;
@@ -93,12 +94,13 @@ double simulatePerformance(const Task& task, const Worker& worker) {
 }
 
 
-void processTasks(const Task tasks[], int taskCount, const Worker workers[], int workerCount) {
-    FileOut outFile;
-    initializeFileOut(outFile, "Output.txt");
+void processTasks(Task tasks[], int taskCount, Worker workers[], int workerCount, FileOut &outFile) {
+
+    initialiseFileOut(outFile, outFile.filename);
 
     for (int i = 0; i < taskCount; i++) {
-        const Task& task = tasks[i];
+        Task& task = tasks[i];
+        printf("\n");
         outFile.stream << "==================================================================" << std::endl;
         outFile.stream << "processing taskId: " << task.taskId << std::endl;
         outFile.stream << "description: " << task.description << std::endl;
@@ -132,7 +134,7 @@ void processTasks(const Task tasks[], int taskCount, const Worker workers[], int
             outFile.stream << "------------------------------------------------------------------" << std::endl;
             outFile.stream << "Trial: workers: " << worker.workerId << std::endl;
             outFile.stream << "------------------------------------------------------------------" << std::endl;
-            outFile.stream << "The average performance is " << std::fixed << std::setprecision(2) << performance << std::endl;
+            outFile.stream << "The average performance is " << std::fixed << std::setprecision(0) << performance << std::endl;
             if (performance > 50) {
                 outFile.stream << "Assignment of Task " << task.taskId << " to worker " << worker.workerId << " succeeds" << std::endl;
                 break;
@@ -143,4 +145,6 @@ void processTasks(const Task tasks[], int taskCount, const Worker workers[], int
     }
 
     closeFileOut(outFile);
+
 }
+

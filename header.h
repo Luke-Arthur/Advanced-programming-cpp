@@ -2,42 +2,45 @@
 
 #include <fstream>
 
-const int MAX_WORKERS = 20;
-const int MAX_TASKS = 20;
+const int WORKERS = 20;
+const int TASKS = 20;
 
-// Struct declaration
+// struct to hold in file data
 struct FileDataIn {
     const char* filename;
     std::ifstream stream;
 };
 
+// struct to hold out file data
 struct FileOut {
     const char* filename;
     std::ofstream stream;
 };
 
-
+// stuct to hold task attributes
 struct Task {
     int taskId;
-    char description[50];  // Assuming max length as 50
+    char description[50];
     int uncertainty;
     int difficulty;
-    int workerList[MAX_WORKERS];
+    int workerList[WORKERS];
     int workerCount;
 };
 
+// struct to hold worker attributes
 struct Worker {
     int workerId;
-    char name[50];  // Assuming max length as 50
+    char name[50];
     int variability;
     int ability;
 };
 
-void initializeFileIn(FileDataIn &fileData, const char* fname);
+// function prototypes
+void initialiseFileIn(FileDataIn &fileData, const char* file);
 void closeFileIn(FileDataIn &fileData);
-void initializeFileOut(FileOut &fileOut, const char* fname);
+void initialiseFileOut(FileOut &fileOut, const char* fname);
 void closeFileOut(FileOut &fileOut);
 void readTasks(Task tasks[], int& taskCount);
 void readWorkers(Worker workers[], int& workerCount);
-double simulatePerformance(const Task& task, const Worker& worker);
-void processTasks(const Task tasks[], int taskCount, const Worker workers[], int workerCount);
+double forecastedPerformance(Task& task, Worker& worker);
+void processTasks(Task tasks[], int taskCount, Worker workers[], int workerCount);
